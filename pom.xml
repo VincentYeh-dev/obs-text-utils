@@ -17,6 +17,14 @@
         <main-class>org.vincentyeh.obstextutils.MainProgram</main-class>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>2.2</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
