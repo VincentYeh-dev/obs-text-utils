@@ -23,6 +23,13 @@
             <artifactId>flatlaf</artifactId>
             <version>2.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>forms_rt</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -39,31 +46,21 @@
                         </goals>
                         <configuration>
                             <finalName>${jar-name}</finalName>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer"/>
+                            </transformers>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
                                         <exclude>META-INF/DEPENDENCIES</exclude>
-                                        <exclude>META-INF/LICENSE*</exclude>
-                                        <exclude>META-INF/NOTICE*</exclude>
                                         <exclude>META-INF/MANIFEST*</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>junit:junit</exclude>
-                                    <exclude>org.junit.jupiter:*</exclude>
-                                </excludes>
-                            </artifactSet>
-
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>${main-class}</mainClass>
-                                </transformer>
-                            </transformers>
-
                         </configuration>
                     </execution>
 
@@ -83,7 +80,7 @@
                             <goal>launch4j</goal>
                         </goals>
                         <configuration>
-                            <headerType>console</headerType>
+                            <headerType>gui</headerType>
                             <jar>target/${jar-name}.jar</jar>
                             <outfile>target/bin/${exe-name}.exe</outfile>
                             <downloadUrl>http://www.java.com</downloadUrl>
@@ -91,9 +88,6 @@
                                 <mainClass>${main-class}</mainClass>
                             </classPath>
                             <jre>
-                                <opts>
-                                    <opt>-Dfile.encoding=UTF-8</opt>
-                                </opts>
                                 <bundledJre64Bit>false</bundledJre64Bit>
                                 <bundledJreAsFallback>false</bundledJreAsFallback>
                                 <minVersion>${maven.compiler.source}</minVersion>
